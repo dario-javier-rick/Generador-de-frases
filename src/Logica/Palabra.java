@@ -8,13 +8,14 @@ import Helpers.Helper;
 
 
 public class Palabra {
-	
-	private String rutaVerbos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Verbos.txt";
-	private String rutaAdjetivos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Adjetivos.txt";
-	private String rutaSustantivos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Sustantivos.txt";
+	private String rutaPredicado = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/predicado.txt";
+	private String rutaVerbos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/predicado(verbos).txt";
+	private String rutaSustantivos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/sujeto(sustantivos).txt";
 	
 	private String texto;
+	
 	private TipoPalabra tipo;
+	
 	private GeneroPalabra genero;
 	
 
@@ -59,28 +60,35 @@ public class Palabra {
 			return "La";
 	}
 
+	/*
+	 * Le agregué el género neutro para no tener que sobrecargar
+	 * el método.
+	 */
+	
 	private String generarVerbo() throws IOException { // Son en 3ra persona!
-		return Helper.traerRegistroAleatorio(rutaVerbos);
+		return Helper.traerRegistroAleatorio(rutaVerbos, genero);
 	}
 
-	private String generarAdjetivo(GeneroPalabra genero) {
-		return Helper.traerRegistroAleatorio(rutaAdjetivos,genero);	
+	private String generarAdjetivo(GeneroPalabra genero) throws IOException{
+		return Helper.traerRegistroAleatorio(rutaPredicado, genero);	
 	}
 
 
-	private String generarSustantivo(GeneroPalabra genero) {
+	private String generarSustantivo(GeneroPalabra genero) throws IOException{
 		return Helper.traerRegistroAleatorio(rutaSustantivos,genero);
 	}
 
+
+
 	
-
-
-
 	@Override
 	public String toString() {
 		return texto;
 	}
+
+
 	
 	
 
 }
+
