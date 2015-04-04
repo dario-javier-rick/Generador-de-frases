@@ -8,9 +8,14 @@ import Helpers.Helper;
 
 
 public class Palabra {
-	private String rutaPredicado = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/predicado.txt";
-	private String rutaVerbos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/predicado(verbos).txt";
-	private String rutaSustantivos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/sujeto(sustantivos).txt";
+	
+	private String rutaAdjetivos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras/Adjetivos.txt";
+	private String rutaVerbos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras/Verbos.txt";
+	private String rutaSustantivos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras/Sustantivos.txt";
+	
+	//private String rutaPredicado = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/predicado.txt";
+	//private String rutaVerbos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/predicado(verbos).txt";
+	//private String rutaSustantivos = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras2/sujeto(sustantivos).txt";
 	
 	private String texto;
 	
@@ -66,16 +71,16 @@ public class Palabra {
 	 */
 	
 	private String generarVerbo() throws IOException { // Son en 3ra persona!
-		return Helper.traerRegistroAleatorio(rutaVerbos, genero);
+		return Helper.traerRegistroAleatorio(rutaVerbos); // Genero?
 	}
 
 	private String generarAdjetivo(GeneroPalabra genero) throws IOException{
-		return Helper.traerRegistroAleatorio(rutaPredicado, genero);	
+		return Helper.traerRegistroAleatorio(rutaAdjetivos);	
 	}
 
 
 	private String generarSustantivo(GeneroPalabra genero) throws IOException{
-		return Helper.traerRegistroAleatorio(rutaSustantivos,genero);
+		return Helper.traerRegistroAleatorio(rutaSustantivos);
 	}
 
 

@@ -34,6 +34,8 @@ public class TP1 {
 	JLabel lblComplejidadGramatical = new JLabel("Complejidad gramatical:");
 	JComboBox cbComplejidadGramatical = new JComboBox();
 	JComboBox cbNivelAgresividad = new JComboBox();
+	
+	
 
 	ArrayList<JLabel> listaLabels = new ArrayList<JLabel>();
 	JLabel lblNewLabel_1 = new JLabel("");
@@ -42,8 +44,8 @@ public class TP1 {
 	JLabel lblNewLabel_4 = new JLabel("");
 	JLabel lblNewLabel_5 = new JLabel("");
 	
-
 	JButton btnGuardar = new JButton("Guardar");
+	JLabel lblMensaje = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -218,7 +220,7 @@ public class TP1 {
 		lblNewLabel_4.setBounds(265, 249, 176, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 
-		lblNewLabel_5.setBounds(265, 274, 46, 14);
+		lblNewLabel_5.setBounds(260, 274, 46, 14);
 		frame.getContentPane().add(lblNewLabel_5);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -233,10 +235,9 @@ public class TP1 {
 					{
 						bw.write(lblNewLabel_1.getText());
 						bw.newLine();
-					}
-					
-					
-					bw.close();
+					}					
+					bw.close();					
+					lblMensaje.setText("Frases guardadas en "+ ruta);
 				} catch (IOException e) {
 					
 					// Exception
@@ -245,8 +246,11 @@ public class TP1 {
 			}
 		});
 
-		btnGuardar.setBounds(410, 287, 89, 23);
+		btnGuardar.setBounds(22, 265, 89, 23);
 		frame.getContentPane().add(btnGuardar);
+				
+		lblMensaje.setBounds(20, 299, 188, 14);
+		frame.getContentPane().add(lblMensaje);
 		btnGuardar.setVisible(false);
 	}
 }
