@@ -8,30 +8,26 @@ public class Frase {
 	private TemaFrase tema;
 	
 	private int complejidad;
-	
 	private int agresividad;
+	
 	private ArrayList<Palabra> palabras= new ArrayList<Palabra>();
 	
 	public Frase(TemaFrase tema) throws IOException {
-		this.tema = tema;
+		setTema(tema);
 		
-		Palabra pronombre = new Palabra(TipoPalabra.Pronombre, GeneroPalabra.Masculino);
-		Palabra sustantivo = new Palabra(TipoPalabra.Sustantivo, GeneroPalabra.Masculino);
-		Palabra verbo = new Palabra(TipoPalabra.Verbo, GeneroPalabra.Neutro);
-		Palabra adjetivo = new Palabra(TipoPalabra.Adjetivo, GeneroPalabra.Masculino);
+		Palabra pronombre = new Palabra(TipoPalabra.Pronombre, GeneroPalabra.Masculino, null);
+		Palabra sustantivo = new Palabra(TipoPalabra.Sustantivo, GeneroPalabra.Masculino, tema);
+		Palabra verbo = new Palabra(TipoPalabra.Verbo, null, tema);
+		Palabra adjetivo = new Palabra(TipoPalabra.Adjetivo, GeneroPalabra.Masculino, tema);
 		
-		
-			palabras.add(pronombre);
-			palabras.add(sustantivo);
-			palabras.add(verbo);
-			palabras.add(adjetivo);
+		palabras.add(pronombre);
+		palabras.add(sustantivo);
+		palabras.add(verbo);
+		palabras.add(adjetivo);
 
 	}
 		
-		
 
-
-	
 	@Override
 	public String toString() {
 		String frase = "";
@@ -40,6 +36,31 @@ public class Frase {
 		}
 		return frase;
 	}
+
+
+	private void setTema(TemaFrase tema) {
+		this.tema = tema;		
+	}
+
+	public TemaFrase getTema() {
+		return tema;
+	}
+
+	public int getComplejidad() {
+		return complejidad;
+	}
 	
+	public void setComplejidad(int complejidad) {
+		this.complejidad = complejidad;
+	}
+	
+	public int getAgresividad() {
+		return agresividad;
+	}
+
+	public void setAgresividad(int agresividad) {
+		this.agresividad = agresividad;
+	}
+
 	
 }

@@ -1,7 +1,9 @@
 package Presentacion;
-import java.awt.EventQueue;
-import java.awt.List;
 
+
+import java.awt.EventQueue;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -34,8 +36,6 @@ public class TP1 {
 	JLabel lblComplejidadGramatical = new JLabel("Complejidad gramatical:");
 	JComboBox cbComplejidadGramatical = new JComboBox();
 	JComboBox cbNivelAgresividad = new JComboBox();
-	
-	
 
 	ArrayList<JLabel> listaLabels = new ArrayList<JLabel>();
 	JLabel lblNewLabel_1 = new JLabel("");
@@ -43,7 +43,7 @@ public class TP1 {
 	JLabel lblNewLabel_3 = new JLabel("");
 	JLabel lblNewLabel_4 = new JLabel("");
 	JLabel lblNewLabel_5 = new JLabel("");
-	
+
 	JButton btnGuardar = new JButton("Guardar");
 	JLabel lblMensaje = new JLabel("");
 
@@ -102,13 +102,12 @@ public class TP1 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-
 		listaLabels.add(lblNewLabel_1);
 		listaLabels.add(lblNewLabel_2);
 		listaLabels.add(lblNewLabel_3);
 		listaLabels.add(lblNewLabel_4);
 		listaLabels.add(lblNewLabel_5);
-		
+
 		bindcbTema();
 		bindcbCantidadFrases();
 
@@ -140,14 +139,21 @@ public class TP1 {
 				for (int i = 0; i < cantidad; i++) {
 					Frase frase;
 					try {
-						frase = new Frase((TemaFrase) cbTema
-								.getSelectedItem());
+						frase = new Frase((TemaFrase) cbTema.getSelectedItem());
 						frases.add(frase);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
+					
+					// imprimo en consola para verificar
+					for (int x = 0 ; x < frases.size(); x ++){
+						System.out.println(frases.get(x));						
+					}
+					System.out.println("");
+					//
+
 				}
 				mostrarFrases(frases);
 				btnGuardar.setVisible(true);
@@ -157,11 +163,13 @@ public class TP1 {
 				for (int i = 0; i < frases.size(); i++) {
 					// CORREGIR!
 					int contador = 0;
-					while ((listaLabels.get(contador).getText() == "") && contador<listaLabels.size()){
-						listaLabels.get(contador).setText(frases.get(i).toString());
+					while ((listaLabels.get(contador).getText() == "")
+							&& contador < listaLabels.size()) {
+						listaLabels.get(contador).setText(
+								frases.get(i).toString());
 					}
-					contador ++ ;
-				
+					contador++;
+
 				}
 			}
 		});
@@ -224,31 +232,42 @@ public class TP1 {
 		frame.getContentPane().add(lblNewLabel_5);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new java.io.File("."));
+				// Titulo que llevara la ventana
+				chooser.setDialogTitle("Titulo");
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.setAcceptAllFileFilterUsed(false);
+				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					System.out.println("Directorio: "
+							+ chooser.getCurrentDirectory());
 
-				String ruta = "C:/frases.txt";
-				File archivo = new File(ruta);
-				BufferedWriter bw;
-				try {
-					bw = new BufferedWriter(new FileWriter(archivo));
-					for (int i = 0 ; i < Integer.parseInt(cbCantidadFrases
-							.getSelectedItem().toString()) ; i ++)
-					{
-						bw.write(lblNewLabel_1.getText());
-						bw.newLine();
-					}					
-					bw.close();					
-					lblMensaje.setText("Frases guardadas en "+ ruta);
-				} catch (IOException e) {
-					
-					// Exception
+					String ruta = chooser.getCurrentDirectory().toString()
+							+ "/frases.txt";
+					File archivo = new File(ruta);
+					BufferedWriter bw;
+					try {
+						bw = new BufferedWriter(new FileWriter(archivo));
+						for (int i = 0; i < Integer.parseInt(cbCantidadFrases
+								.getSelectedItem().toString()); i++) {
+							bw.write(lblNewLabel_1.getText());
+							bw.newLine();
+						}
+						bw.close();
+						lblMensaje.setText("Frases guardadas en " + ruta);
+					} catch (IOException e) {
+						// Exception
+					}
 
+				} else {
+					lblMensaje.setText("No ha seleccionado el directorio");
 				}
 			}
 		});
 
 		btnGuardar.setBounds(22, 265, 89, 23);
 		frame.getContentPane().add(btnGuardar);
-				
+
 		lblMensaje.setBounds(20, 299, 188, 14);
 		frame.getContentPane().add(lblMensaje);
 		btnGuardar.setVisible(false);
