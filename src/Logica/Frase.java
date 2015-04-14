@@ -15,8 +15,8 @@ public class Frase {
 	public Frase(TemaFrase tema) throws IOException {
 		setTema(tema);
 		
-		Palabra pronombre = new Palabra(TipoPalabra.Pronombre, GeneroPalabra.Masculino, null);
 		Palabra sustantivo = new Palabra(TipoPalabra.Sustantivo, GeneroPalabra.Masculino, tema);
+		Palabra pronombre = new Palabra(TipoPalabra.Pronombre, sustantivo.genero, null);
 		Palabra verbo = new Palabra(TipoPalabra.Verbo, null, tema);
 		Palabra adjetivo = new Palabra(TipoPalabra.Adjetivo, GeneroPalabra.Masculino, tema);
 		

@@ -1,6 +1,5 @@
 package Presentacion;
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
@@ -37,12 +36,7 @@ public class TP1 {
 	JComboBox cbComplejidadGramatical = new JComboBox();
 	JComboBox cbNivelAgresividad = new JComboBox();
 
-	ArrayList<JLabel> listaLabels = new ArrayList<JLabel>();
-	JLabel lblNewLabel_1 = new JLabel("");
-	JLabel lblNewLabel_2 = new JLabel("");
-	JLabel lblNewLabel_3 = new JLabel("");
-	JLabel lblNewLabel_4 = new JLabel("");
-	JLabel lblNewLabel_5 = new JLabel("");
+	JLabel lblFrases = new JLabel("");
 
 	JButton btnGuardar = new JButton("Guardar");
 	JLabel lblMensaje = new JLabel("");
@@ -102,12 +96,6 @@ public class TP1 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		listaLabels.add(lblNewLabel_1);
-		listaLabels.add(lblNewLabel_2);
-		listaLabels.add(lblNewLabel_3);
-		listaLabels.add(lblNewLabel_4);
-		listaLabels.add(lblNewLabel_5);
-
 		bindcbTema();
 		bindcbCantidadFrases();
 
@@ -137,40 +125,27 @@ public class TP1 {
 				int cantidad = Integer.parseInt(cbCantidadFrases
 						.getSelectedItem().toString());
 				for (int i = 0; i < cantidad; i++) {
-					Frase frase;
+					Frase frase = null;
 					try {
 						frase = new Frase((TemaFrase) cbTema.getSelectedItem());
-						frases.add(frase);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					
-					// imprimo en consola para verificar
-					for (int x = 0 ; x < frases.size(); x ++){
-						System.out.println(frases.get(x));						
-					}
-					System.out.println("");
-					//
 
+					} catch (IOException e) {
+						lblMensaje
+								.setText("No se ha podido generar las frases");
+					}
+					frases.add(frase);
 				}
+
 				mostrarFrases(frases);
 				btnGuardar.setVisible(true);
 			}
 
 			private void mostrarFrases(ArrayList<Frase> frases) {
+				String texto = "<html>";
 				for (int i = 0; i < frases.size(); i++) {
-					// CORREGIR!
-					int contador = 0;
-					while ((listaLabels.get(contador).getText() == "")
-							&& contador < listaLabels.size()) {
-						listaLabels.get(contador).setText(
-								frases.get(i).toString());
-					}
-					contador++;
-
+					texto = texto + frases.get(i) + "<br>";
 				}
+				lblFrases.setText(texto);
 			}
 		});
 
@@ -216,20 +191,9 @@ public class TP1 {
 		btnMostrarOpcionesAvanzadas.setBounds(20, 131, 188, 23);
 		frame.getContentPane().add(btnMostrarOpcionesAvanzadas);
 
-		lblNewLabel_1.setBounds(265, 177, 176, 19);
-		frame.getContentPane().add(lblNewLabel_1);
+		lblFrases.setBounds(265, 128, 234, 133);
+		frame.getContentPane().add(lblFrases);
 
-		lblNewLabel_2.setBounds(265, 199, 176, 14);
-		frame.getContentPane().add(lblNewLabel_2);
-
-		lblNewLabel_3.setBounds(265, 224, 176, 14);
-		frame.getContentPane().add(lblNewLabel_3);
-
-		lblNewLabel_4.setBounds(265, 249, 176, 14);
-		frame.getContentPane().add(lblNewLabel_4);
-
-		lblNewLabel_5.setBounds(260, 274, 46, 14);
-		frame.getContentPane().add(lblNewLabel_5);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser chooser = new JFileChooser();
@@ -243,14 +207,14 @@ public class TP1 {
 							+ chooser.getCurrentDirectory());
 
 					String ruta = chooser.getCurrentDirectory().toString()
-							+ "/frases.txt";
+							+ "/" + "frases.txt";
 					File archivo = new File(ruta);
 					BufferedWriter bw;
 					try {
 						bw = new BufferedWriter(new FileWriter(archivo));
 						for (int i = 0; i < Integer.parseInt(cbCantidadFrases
 								.getSelectedItem().toString()); i++) {
-							bw.write(lblNewLabel_1.getText());
+							bw.write(lblFrases.getText());
 							bw.newLine();
 						}
 						bw.close();
@@ -265,10 +229,10 @@ public class TP1 {
 			}
 		});
 
-		btnGuardar.setBounds(22, 265, 89, 23);
+		btnGuardar.setBounds(20, 238, 89, 23);
 		frame.getContentPane().add(btnGuardar);
 
-		lblMensaje.setBounds(20, 299, 188, 14);
+		lblMensaje.setBounds(20, 272, 426, 38);
 		frame.getContentPane().add(lblMensaje);
 		btnGuardar.setVisible(false);
 	}

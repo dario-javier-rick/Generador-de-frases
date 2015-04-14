@@ -9,25 +9,28 @@ import java.io.InputStream;
 import java.util.Random;
 
 /**
-* Esta clase contiene métodos de ayuda que se pueden utilizar de manera transversal a lo largo de todo el proyecto
-* @author: Karen Perez y Darío Rick
-*/
-
+ * Esta clase contiene métodos de ayuda que se pueden utilizar de manera
+ * transversal a lo largo de todo el proyecto
+ * 
+ * @author: Karen Perez y Darío Rick
+ */
 
 public class Helper {
-	
-	
-    /** Genera un número aleatorio
-    */
+
+	/**
+	 * Genera un número aleatorio
+	 */
 	public static int randInt(int min, int max) {
-	    Random rand = new Random();
-	    int randomNum = rand.nextInt((max - min) + 1) + min;
-	    return randomNum;
+		Random rand = new Random();
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+		return randomNum;
 	}
 
-	/** Cuenta las líneas de un archivo dado
-	 * @throws IOException 
-	*/
+	/**
+	 * Cuenta las líneas de un archivo dado
+	 * 
+	 * @throws IOException
+	 */
 	public static int contarLineas(String filename) throws IOException {
 		InputStream is = new BufferedInputStream(new FileInputStream(filename));
 		try {
@@ -44,16 +47,17 @@ public class Helper {
 				}
 			}
 			return (count == 0 && !empty) ? 1 : count;
-		}
-		finally {
+		} finally {
 			is.close();
 		}
 	}
 
-	/** Dado un número de línea, trae un registro de un archivo .txt dado
-	* @throws IOException 
-	*/
-	private static String traerRegistro(String ruta, int numeroLinea)
+	/**
+	 * Dado un número de línea, trae un registro de un archivo .txt dado
+	 * 
+	 * @throws IOException
+	 */
+	public static String traerRegistro(String ruta, int numeroLinea)
 			throws IOException {
 		// Si el número de linea es válido, la devuelve. Sino, devuelve null.
 		try {
@@ -74,62 +78,48 @@ public class Helper {
 		return null;
 	}
 
-	/** Dado un archivo .txt, trae un registro aleatorio del mismo
-	 * @throws IOException 
-	*/
+	/**
+	 * Dado un archivo .txt, trae un registro aleatorio del mismo
+	 * 
+	 * @throws IOException
+	 */
 	public static String traerRegistroAleatorio(String ruta) throws IOException {
-		int random = randInt(0,contarLineas(ruta));
+		int random = randInt(0, contarLineas(ruta));
 		try {
 			return traerRegistro(ruta, random);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return ruta;
-		}
-	
-	
-	
-	
-	
-	//------------------
-	//Métodos viejos
+	}
+
+	// ------------------
+	// Métodos viejos
 
 	/*
 	 * La modifique para que lea el block de notas, guarde las palabras en una
 	 * lista y en la parte de abajo genera la palabra aleatoria de eso.
 	 * Funciona! pero no es tan coherente como deberia...
-	 */	
-	
-	
+	 */
+
 	/*
-	
-	public static String traerRegistroAleatorio(String ruta,
-			GeneroPalabra genero) throws IOException {
-		ArrayList<String> palabras = new ArrayList<String>();
-		String cadena = "";
+	 * 
+	 * public static String traerRegistroAleatorio(String ruta, GeneroPalabra
+	 * genero) throws IOException { ArrayList<String> palabras = new
+	 * ArrayList<String>(); String cadena = "";
+	 * 
+	 * try { FileReader f = new FileReader(ruta); BufferedReader b = new
+	 * BufferedReader(f); while ((cadena = b.readLine()) != null) {
+	 * palabras.add(cadena); System.out.println(cadena); } b.close(); } catch
+	 * (IOException e) { throw e; }
+	 * 
+	 * return generarPalabraAleatoria(palabras);
+	 * 
+	 * }
+	 * 
+	 * // devuelve una palabra aleatoria de un conjunto de palabras. private
+	 * static String generarPalabraAleatoria(ArrayList<String> p) { Random rnd =
+	 * new Random(); int indice = rnd.nextInt(p.size()); return p.get(indice); }
+	 */
 
-		try {
-			FileReader f = new FileReader(ruta);
-			BufferedReader b = new BufferedReader(f);
-			while ((cadena = b.readLine()) != null) {
-				palabras.add(cadena);
-				System.out.println(cadena);
-			}
-			b.close();
-		} catch (IOException e) {
-			throw e;
-		}
-
-		return generarPalabraAleatoria(palabras);
-
-	}
-
-	// devuelve una palabra aleatoria de un conjunto de palabras.
-	private static String generarPalabraAleatoria(ArrayList<String> p) {
-		Random rnd = new Random();
-		int indice = rnd.nextInt(p.size());
-		return p.get(indice);
-	}
- */	
-	
 }
