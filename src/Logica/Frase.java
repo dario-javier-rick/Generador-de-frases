@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+
 public class Frase {
 	
 	private TemaFrase tema;
@@ -15,10 +16,10 @@ public class Frase {
 	public Frase(TemaFrase tema) throws IOException {
 		setTema(tema);
 		
-		Palabra sustantivo = new Palabra(TipoPalabra.Sustantivo, GeneroPalabra.Masculino, tema);
+		Palabra sustantivo = new Palabra(TipoPalabra.Sustantivo, GeneroPalabra.values()[(int)(Math.random()*GeneroPalabra.values().length)], tema);
 		Palabra pronombre = new Palabra(TipoPalabra.Pronombre, sustantivo.genero, null);
 		Palabra verbo = new Palabra(TipoPalabra.Verbo, null, tema);
-		Palabra adjetivo = new Palabra(TipoPalabra.Adjetivo, GeneroPalabra.Masculino, tema);
+		Palabra adjetivo = new Palabra(TipoPalabra.Adjetivo, sustantivo.genero, tema);
 		
 		palabras.add(pronombre);
 		palabras.add(sustantivo);

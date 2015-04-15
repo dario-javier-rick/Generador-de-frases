@@ -26,6 +26,7 @@ public class Helper {
 		return randomNum;
 	}
 
+	
 	/**
 	 * Cuenta las líneas de un archivo dado
 	 * 
@@ -84,7 +85,7 @@ public class Helper {
 	 * @throws IOException
 	 */
 	public static String traerRegistroAleatorio(String ruta) throws IOException {
-		int random = randInt(0, contarLineas(ruta));
+		int random = randInt(0, contarLineas(ruta)-1);
 		try {
 			return traerRegistro(ruta, random);
 		} catch (IOException e) {

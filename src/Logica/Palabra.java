@@ -15,12 +15,15 @@ public class Palabra {
 	public Palabra(TipoPalabra tipo, GeneroPalabra genero, TemaFrase tema) throws IOException {
 		if (tipo == TipoPalabra.Pronombre){
 			texto = generarPronombre(genero);
+			this.genero = genero;
 		}
 		else if (tipo == TipoPalabra.Sustantivo){
 			texto = generarSustantivo(genero, tema);
+			this.genero = genero;
 		}
 		else if (tipo == TipoPalabra.Adjetivo){
 			texto = generarAdjetivo(genero, tema);
+			this.genero = genero;
 		}
 		else {
 			texto = generarVerbo(tema);
@@ -29,7 +32,7 @@ public class Palabra {
 
 	/** Genera un pronombre */
 	private String generarPronombre(GeneroPalabra genero){
-		if (genero == GeneroPalabra.Masculino){
+		if (genero.equals(GeneroPalabra.Masculino) ){
 			return "El";
 		}
 		else
@@ -42,41 +45,56 @@ public class Palabra {
 	}
 
 	/** Genera un adjetivo aleatorio */
-	private String generarAdjetivo(GeneroPalabra genero, TemaFrase tema) throws IOException{
-		String s =  Helper.traerRegistroAleatorio(directorio + tema + "/Adjetivos.txt");	 
-		String[] split = s.split(";");
-		if (split[1]=="m"){
-			this.genero = GeneroPalabra.Masculino;
+	private String generarAdjetivo(GeneroPalabra genero, TemaFrase tema) throws IOException{	 
+		String ruta = directorio + tema + "/Adjetivos.txt";
+		int lineas = Helper.contarLineas(ruta);
+		ArrayList<String> registrosPorGenero = new ArrayList<String>(); 
+		
+		for (int i = 0; i < lineas; i++)
+		{
+			String registro = (Helper.traerRegistro(ruta, i));
+			String[] split = registro.split(";");
+			if (genero == GeneroPalabra.Masculino){
+				if (split[1].equals("m")){
+					registrosPorGenero.add(split[0]);
+				}
+			}
+			else if (genero == GeneroPalabra.Femenino){
+				if (split[1].equals("f")){
+					registrosPorGenero.add(split[0]);
+				}
+			}
 		}
-		else if (split[1]=="f"){
-			this.genero = GeneroPalabra.Femenino;
-		}
-		return split[0];
+		
+		int index = Helper.randInt(0, registrosPorGenero.size()-1);
+		return registrosPorGenero.get(index);
+	
 	}
 
 	/** Genera un sustantivo aleatorio */
 	private String generarSustantivo(GeneroPalabra genero, TemaFrase tema) throws IOException{
 		String ruta = directorio + tema + "/Sustantivos.txt";
 		int lineas = Helper.contarLineas(ruta);
-		ArrayList<String> registros = null; 
+		ArrayList<String> registrosPorGenero = new ArrayList<String>(); 
+		
 		for (int i = 0; i < lineas; i++)
 		{
 			String registro = (Helper.traerRegistro(ruta, i));
 			String[] split = registro.split(";");
 			if (genero == GeneroPalabra.Masculino){
-				if (split[1]=="m"){
-					registros.add(split[0]);
+				if (split[1].equals("m")){
+					registrosPorGenero.add(split[0]);
 				}
 			}
 			else if (genero == GeneroPalabra.Femenino){
-				if (split[1]=="f"){
-					registros.add(split[0]);
+				if (split[1].equals("f")){
+					registrosPorGenero.add(split[0]);
 				}
 			}
 		}
 		
-		int index = Helper.randInt(0, registros.size());
-		return registros.get(index);
+		int index = Helper.randInt(0, registrosPorGenero.size()-1);
+		return registrosPorGenero.get(index);
 	
 	}
 
