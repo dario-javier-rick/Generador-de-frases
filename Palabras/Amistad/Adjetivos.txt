@@ -1,0 +1,9 @@
+lindo;m
+linda;f
+feo;m
+malo;m
+horrible;m
+asqueroso;m
+putrefacto;m
+divertido;m
+horroroso;m

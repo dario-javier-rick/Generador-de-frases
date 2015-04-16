@@ -6,7 +6,7 @@ import Helpers.Helper;
 
 public class Palabra {
 	
-	private String directorio  = "C:/Users/AlienDJR/Desktop/Estudios/Facultad UNGS/Programacion 3/Palabras/";
+	private String directorio  = "Palabras/";
 	
 	private String texto;
 	GeneroPalabra genero;

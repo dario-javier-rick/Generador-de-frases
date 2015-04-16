@@ -1,0 +1,8 @@
+cariño;m
+amor;m
+galan;m
+relacion;f
+conquista;f
+noviazgo;m
+pretendiente;m
+aventura;f
