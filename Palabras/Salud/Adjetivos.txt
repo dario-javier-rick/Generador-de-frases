@@ -1,10 +1,4 @@
-lindo;m
-apasionado;m
-afectivo;m
-cariñoso;m
-tierno;m
-linda;f
-apasionada;f
-afectiva;f
-cariñosa;f
-tierna;f
+sano;m
+sana;f
+saludable;m
+saludable;f

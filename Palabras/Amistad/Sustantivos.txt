@@ -1,2 +1,4 @@
 Amistad;f
 Amigo;m
+Compañero;m
+Compañera;f

@@ -1,1 +1,10 @@
-Cariño;m
+Salud;m
+Desmayo;m
+Gripe;f
+Mareo;m
+Resfriado;m
+SIDA;m
+Tos;f
+Jarabe;m
+Medicamento;m
+Pastilla;f

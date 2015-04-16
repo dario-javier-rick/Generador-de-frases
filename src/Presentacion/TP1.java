@@ -16,7 +16,6 @@ import Logica.TemaFrase;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -80,18 +79,43 @@ public class TP1 {
 		opciones.add(2);
 		opciones.add(3);
 		opciones.add(4);
+		opciones.add(5);
 		for (int i = 0; i < opciones.size(); i++) {
 			this.cbCantidadFrases.addItem(opciones.get(i));
 		}
-
+	}
+	
+	private void bindcbComplejidadGramatical() {
+		ArrayList<Integer> opciones = new ArrayList<Integer>();
+		opciones.add(1);
+		opciones.add(2);
+		opciones.add(3);
+		opciones.add(4);
+		this.cbComplejidadGramatical.removeAllItems();
+		for (int i = 0; i < opciones.size(); i++) {
+			this.cbComplejidadGramatical.addItem(opciones.get(i));
+		}
+	}
+	
+	private void bindcbNivelAgresividad() {
+		ArrayList<String> opciones = new ArrayList<String>();
+		opciones.add("Bajo");
+		opciones.add("Medio");
+		opciones.add("Alto");
+		this.cbNivelAgresividad.removeAllItems();
+		for (int i = 0; i < opciones.size(); i++) {
+			this.cbNivelAgresividad.addItem(opciones.get(i));
+		}
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 
 		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 11));
 		frame.setBounds(100, 100, 525, 359);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -105,39 +129,71 @@ public class TP1 {
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblTema = new JLabel("Tema:");
-		lblTema.setBounds(10, 71, 46, 14);
+		lblTema.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblTema.setBounds(10, 71, 99, 14);
 		frame.getContentPane().add(lblTema);
+		cbTema.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		cbTema.setBounds(124, 68, 74, 20);
 		frame.getContentPane().add(cbTema);
+		cbCantidadFrases.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		cbCantidadFrases.setBounds(124, 100, 74, 20);
 		frame.getContentPane().add(cbCantidadFrases);
 
 		JLabel lblCantidadDeFrases = new JLabel("Cantidad de frases:");
-		lblCantidadDeFrases.setBounds(10, 103, 101, 14);
+		lblCantidadDeFrases.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblCantidadDeFrases.setBounds(10, 103, 99, 14);
 		frame.getContentPane().add(lblCantidadDeFrases);
 
 		JButton btnGenerar = new JButton("Generar");
+		btnGenerar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				lblMensaje.setText("");
 				ArrayList<Frase> frases = new ArrayList<Frase>();
 				int cantidad = Integer.parseInt(cbCantidadFrases
 						.getSelectedItem().toString());
 				for (int i = 0; i < cantidad; i++) {
 					Frase frase = null;
 					try {
-						frase = new Frase((TemaFrase) cbTema.getSelectedItem());
+						frase = new Frase((TemaFrase) cbTema.getSelectedItem(), obtenerComplejidad(), obtenerAgresividad());
 
-					} catch (IOException e) {
+					} catch (Exception e) {
 						lblMensaje
-								.setText("No se ha podido generar las frases");
+								.setText(e.toString());
 					}
 					frases.add(frase);
 				}
 
 				mostrarFrases(frases);
 				btnGuardar.setVisible(true);
+			}
+
+			private int obtenerAgresividad() {
+				int agresividad;
+				try
+				{
+					agresividad = Integer.parseInt(cbNivelAgresividad.getSelectedItem().toString());
+				}
+				catch (Exception e)
+				{
+					agresividad = -1;
+				}
+				return agresividad;
+			}
+
+			private String obtenerComplejidad() {
+				String complejidad = "";
+				try
+				{
+					complejidad = cbComplejidadGramatical.getSelectedItem().toString();
+				}
+				catch (Exception e)
+				{
+					// No se puede convertir
+				}
+				return complejidad;
 			}
 
 			private void mostrarFrases(ArrayList<Frase> frases) {
@@ -151,22 +207,27 @@ public class TP1 {
 
 		btnGenerar.setBounds(68, 173, 89, 23);
 		frame.getContentPane().add(btnGenerar);
+		lblNivelDeAgresividad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		lblNivelDeAgresividad.setBounds(265, 71, 106, 14);
+		lblNivelDeAgresividad.setBounds(251, 71, 137, 14);
 		frame.getContentPane().add(lblNivelDeAgresividad);
 		lblNivelDeAgresividad.setVisible(false);
+		cbNivelAgresividad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		cbNivelAgresividad.setBounds(413, 68, 28, 20);
+		cbNivelAgresividad.setBounds(383, 68, 63, 20);
 		frame.getContentPane().add(cbNivelAgresividad);
 		cbNivelAgresividad.setVisible(false);
+		lblComplejidadGramatical.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		lblComplejidadGramatical.setBounds(265, 103, 123, 14);
+		lblComplejidadGramatical.setBounds(251, 102, 122, 17);
 		frame.getContentPane().add(lblComplejidadGramatical);
 		lblComplejidadGramatical.setVisible(false);
+		cbComplejidadGramatical.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		cbComplejidadGramatical.setBounds(413, 100, 28, 20);
+		cbComplejidadGramatical.setBounds(383, 100, 63, 20);
 		frame.getContentPane().add(cbComplejidadGramatical);
 		cbComplejidadGramatical.setVisible(false);
+		btnMostrarOpcionesAvanzadas.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		btnMostrarOpcionesAvanzadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -176,14 +237,18 @@ public class TP1 {
 					lblNivelDeAgresividad.setVisible(true);
 					lblComplejidadGramatical.setVisible(true);
 					cbNivelAgresividad.setVisible(true);
+					bindcbNivelAgresividad();
 					cbComplejidadGramatical.setVisible(true);
+					bindcbComplejidadGramatical();
 				} else {
 					btnMostrarOpcionesAvanzadas
 							.setText("Mostrar opciones avanzadas");
 					lblNivelDeAgresividad.setVisible(false);
 					lblComplejidadGramatical.setVisible(false);
 					cbNivelAgresividad.setVisible(false);
+					cbNivelAgresividad.removeAllItems();
 					cbComplejidadGramatical.setVisible(false);
+					cbComplejidadGramatical.removeAllItems();
 				}
 
 			}
@@ -193,39 +258,27 @@ public class TP1 {
 
 		lblFrases.setBounds(265, 128, 234, 133);
 		frame.getContentPane().add(lblFrases);
+		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.setCurrentDirectory(new java.io.File("."));
-				// Titulo que llevara la ventana
-				chooser.setDialogTitle("Titulo");
-				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				chooser.setAcceptAllFileFilterUsed(false);
-				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					System.out.println("Directorio: "
-							+ chooser.getCurrentDirectory());
-
-					String ruta = chooser.getCurrentDirectory().toString()
-							+ "/" + "frases.txt";
-					File archivo = new File(ruta);
-					BufferedWriter bw;
-					try {
-						bw = new BufferedWriter(new FileWriter(archivo));
-						for (int i = 0; i < Integer.parseInt(cbCantidadFrases
-								.getSelectedItem().toString()); i++) {
-							bw.write(lblFrases.getText());
-							bw.newLine();
-						}
-						bw.close();
-						lblMensaje.setText("Frases guardadas en " + ruta);
-					} catch (IOException e) {
-						// Exception
-					}
-
-				} else {
-					lblMensaje.setText("No ha seleccionado el directorio");
-				}
+				try
+				 {
+				  JFileChooser file=new JFileChooser();
+				  file.showSaveDialog(null);
+				  File guarda =file.getSelectedFile();
+				  if(guarda !=null)
+				  {
+				    FileWriter  save=new FileWriter(guarda+".html");
+					save.write(lblFrases.getText());
+				    save.close();
+				    lblMensaje.setText("Frases guardadas en: " + guarda + ".html");
+				    }
+				 }
+				  catch(IOException ex)
+				  {
+					  lblMensaje.setText("No han podido guardar las frases");
+				  }
 			}
 		});
 
